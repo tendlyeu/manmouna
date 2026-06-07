@@ -1,5 +1,5 @@
 """
-Shared FastHTML components for the Predictive Labs landing site.
+Shared FastHTML components for the Manmouna Technologies landing site.
 
 Design tokens come from Tailwind via CDN with a dark-first palette extended in
 a small inline config block. Custom CSS for the three.js canvas container and
@@ -13,11 +13,11 @@ from fasthtml.common import (
     Video, Source,
 )
 
-SITE_NAME = "Predictive Labs"
+SITE_NAME = "Manmouna Technologies"
 SITE_TAGLINE = "AI for public outcomes."
-CONTACT_EMAIL = "info@predictivelabs.ai"
-GITHUB_URL = "https://github.com/predictivelabsai"
-LINKEDIN_URL = "https://www.linkedin.com/company/predictive-labs-ltd/"
+CONTACT_EMAIL = "info@manmouna.tech"
+GITHUB_URL = "https://github.com/manmouna"
+LINKEDIN_URL = "https://www.linkedin.com/company/manmouna/"
 
 NAV_ITEMS = [
     ("Platform", "/platform"),
@@ -29,7 +29,6 @@ NAV_ITEMS = [
     ]),
     ("Case studies", "/case-studies"),
     ("Signal", "/signal"),
-    ("Research", "/research"),
     ("Team", "/team"),
     ("Contact", "/contact"),
 ]
@@ -40,10 +39,10 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        bg: { DEFAULT: '#0D2A70', elevated: '#163A8C', raised: '#1F4BAC' },
-        ink: { DEFAULT: '#F5F5F7', muted: '#C2CEE8', dim: '#95A5D1' },
-        line: { DEFAULT: '#2B4A8E', bright: '#3A60B2' },
-        accent: { DEFAULT: '#5EEAD4', dim: '#1E3A3A', deep: '#134E4A' },
+        bg: { DEFAULT: '#0B1E14', elevated: '#132E1F', raised: '#1C4030' },
+        ink: { DEFAULT: '#F5F5F7', muted: '#B5CFBE', dim: '#7A9E87' },
+        line: { DEFAULT: '#1E3F2E', bright: '#2D5C42' },
+        accent: { DEFAULT: '#34D399', dim: '#1A3328', deep: '#134E3A' },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -120,7 +119,7 @@ def Body_(text, *, cls="", muted=True):
 def Button_(text, *, href="#", primary=True, cls=""):
     base = "inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-all duration-200"
     if primary:
-        style = "bg-accent text-bg hover:bg-ink shadow-[0_0_0_1px_#5EEAD4] hover:shadow-[0_0_0_1px_#F5F5F7]"
+        style = "bg-accent text-bg hover:bg-ink shadow-[0_0_0_1px_#34D399] hover:shadow-[0_0_0_1px_#F5F5F7]"
     else:
         style = "bg-transparent text-ink border border-line-bright hover:border-accent hover:text-accent"
     return A(text, Span("→", cls="text-base"), href=href, cls=f"{base} {style} {cls}".strip())
@@ -245,7 +244,6 @@ def Footer_():
             ("Overview", "/platform"),
             ("Case studies", "/case-studies"),
             ("Signal", "/signal"),
-            ("Research", "/research"),
         ]),
         ("Solutions", [
             ("Defense & public security", "/solutions/defense"),
@@ -256,8 +254,6 @@ def Footer_():
         ("Company", [
             ("Team", "/team"),
             ("Contact", "/contact"),
-            ("GitHub", GITHUB_URL),
-            ("LinkedIn", LINKEDIN_URL),
         ]),
     ]
 
@@ -293,10 +289,8 @@ def Footer_():
                 cls="grid grid-cols-2 md:grid-cols-4 gap-10",
             ),
             Div(
-                Div(f"© {__import__('datetime').datetime.now().year} Manmouna OÜ t/a Predictive Labs.", cls="text-ink-dim text-xs"),
+                Div(f"© {__import__('datetime').datetime.now().year} Manmouna OÜ.", cls="text-ink-dim text-xs"),
                 Div(
-                    A("GitHub", href=GITHUB_URL, cls="text-ink-dim text-xs hover:text-accent mr-4"),
-                    A("LinkedIn", href=LINKEDIN_URL, cls="text-ink-dim text-xs hover:text-accent mr-4"),
                     A(CONTACT_EMAIL, href=f"mailto:{CONTACT_EMAIL}", cls="text-ink-dim text-xs hover:text-accent break-all"),
                     cls="flex items-center flex-wrap gap-y-2",
                 ),
@@ -347,7 +341,7 @@ def page(title: str, current_path: str = "/", *content, head_extra=None, body_ex
 def Hero(*, eyebrow="AI for public outcomes", headline=None, lede=None, ctas=None, canvas=True, tall=True):
     headline = headline or (Span("Decisions made "), Span("with evidence,", cls="text-accent"), Span(" at the scale of the public good."))
     lede = lede or (
-        "Predictive Labs builds AI systems for European public services — in ",
+        "Manmouna Technologies builds AI systems for European public services — in ",
         SectorLink("health"), ", ",
         SectorLink("defense"), ", ",
         SectorLink("public management"), " and ",

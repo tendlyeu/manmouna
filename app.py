@@ -1,7 +1,7 @@
 """
-Predictive Labs — multipage FastHTML landing site (v2).
+Manmouna Technologies — multipage FastHTML landing site (v2).
 
-Dark, palantir-inspired, public-sector first. Content lives in content/*.py;
+Dark, public-sector first. Content lives in content/*.py;
 routes are thin composition layers over components.py primitives.
 """
 
@@ -13,11 +13,10 @@ from fasthtml.common import (
 from components import (
     page, Hero, Pillar, MetricTile, CaseStudyCard, CTASection, NewsSection,
     Section_, Heading, Eyebrow, Pill, Button_, SectorLink,
-    CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL,
+    CONTACT_EMAIL,
 )
 from content.case_studies import ALL as ALL_CASES, BID_DERIVED, NAMED_PRECEDENTS
 from content.team import TEAM
-from content.repos import REPOS, EXTERNAL_RESEARCH
 from content import signal as signal_mod
 from content import news as news_mod
 
@@ -46,7 +45,7 @@ def home():
     ]
 
     # Pick 3 case studies for the home strip — one public-sector, one Nordic health, one enterprise
-    home_cases = [c for c in ALL_CASES if c["id"] in ("uk-traffic-od", "nordic-health-rwd", "microsoft-isd")]
+    home_cases = [c for c in ALL_CASES if c["id"] in ("mckinsey-governance", "dsm-etl-ml", "arista-device-scoring")]
 
     return page(
         "AI for public outcomes",
@@ -271,7 +270,7 @@ SOLUTIONS = {
             ("Situation pictures", "Fused operational views for municipal and national operators — sensor feeds, anomaly detection, incident summaries."),
             ("Justice and casework data", "Data-warehouse and dashboarding foundations for probation, regulatory and enforcement agencies, under the strictest access controls."),
         ],
-        "case_ids": ["nl-justice-dataplatform", "nordic-city-signal", "uk-traffic-od"],
+        "case_ids": ["mckinsey-governance", "arista-device-scoring", "dsm-etl-ml"],
         "register": ["Operational confidence", "Auditable decision trail", "Human in authority"],
     },
     "healthcare": {
@@ -284,7 +283,7 @@ SOLUTIONS = {
             ("Hospital operations", "Elective-recovery forecasting, capacity planning and AI-sovelluskehitys for the panels Europe's largest hospital systems put on frameworks."),
             ("Clinical document intelligence", "Extraction and structured summarisation of clinical and regulatory documents, audited against human adjudication."),
         ],
-        "case_ids": ["nordic-health-rwd", "nordic-health-panel", "microsoft-isd"],
+        "case_ids": ["dsm-etl-ml", "mckinsey-governance", "arista-device-scoring"],
         "register": ["GDPR-native", "EU AI Act readiness", "Clinical audit trail"],
     },
     "public": {
@@ -297,7 +296,7 @@ SOLUTIONS = {
             ("Municipal data foundations", "Data-quality frameworks, dynamic purchasing frameworks and continuous analytics call-offs for municipalities."),
             ("Planning and forecasting", "Demand, footfall and service-use forecasting for local and regional public-sector planning teams."),
         ],
-        "case_ids": ["uk-traffic-od", "nordic-city-signal", "dk-data-quality"],
+        "case_ids": ["arista-device-scoring", "mckinsey-governance", "dsm-etl-ml"],
         "register": ["Open-source by default", "Reference implementations", "Interoperable"],
     },
     "financial": {
@@ -310,7 +309,7 @@ SOLUTIONS = {
             ("Revenue and demand forecasting", "Time-series modelling for enterprise revenue planning, integrating alternative datasets."),
             ("Document intelligence at scale", "Extraction, classification and retrieval over prospectuses, filings and rating manuals."),
         ],
-        "case_ids": ["dbrs-rmbs", "arm-forecasting", "microsoft-isd"],
+        "case_ids": ["mckinsey-governance", "dsm-etl-ml", "arista-device-scoring"],
         "register": ["Production ML ops", "Regulatory auditability", "Enterprise scale"],
     },
 }
@@ -399,33 +398,21 @@ def case_studies():
         "/case-studies",
         Section_(
             Eyebrow("Case studies"),
-            Heading(1, "Engagements, not endorsements.", cls="mt-5 max-w-4xl"),
-            P("We name the clients we are contractually cleared to name and keep the rest anonymised until they are. Here are six current European public-sector engagements and three commercial precedents that established the practice.",
+            Heading(1, "Delivered at enterprise scale.", cls="mt-5 max-w-4xl"),
+            P("Data engineering, ML deployment, and infrastructure governance for global organisations — from management consulting to cloud infrastructure to chemicals.",
               cls="mt-8 text-xl text-ink-muted max-w-3xl leading-relaxed"),
             cls="pt-24",
         ),
         Section_(
             Div(
-                Eyebrow("Current engagements"),
-                Heading(2, "Public-sector programmes in flight.", cls="mt-4"),
-                cls="mb-14",
-            ),
-            Div(
-                *[CaseStudyCard(c) for c in BID_DERIVED],
-                cls="grid md:grid-cols-2 gap-5",
-            ),
-        ),
-        Section_(
-            Div(
-                Eyebrow("Named precedents"),
-                Heading(2, "Commercial roots.", cls="mt-4"),
+                Eyebrow("Engagements"),
+                Heading(2, "Where we've delivered.", cls="mt-4"),
                 cls="mb-14",
             ),
             Div(
                 *[CaseStudyCard(c) for c in NAMED_PRECEDENTS],
                 cls="grid md:grid-cols-3 gap-5",
             ),
-            cls="border-t border-line bg-bg-elevated/40",
         ),
         CTASection(),
     )
@@ -500,80 +487,6 @@ def signal():
             Script(NotStr(f"window.PLOTLY_DATA = {signal_mod.as_json()};")),
             Script(src="/static/signal.js"),
         ],
-    )
-
-
-# ---------- /research ----------
-
-@rt("/research")
-def research():
-    return page(
-        "Research",
-        "/research",
-        Section_(
-            Eyebrow("Research & open source"),
-            Heading(1, "Commoditised capability goes to the commons.", cls="mt-5 max-w-4xl"),
-            P("Our reference implementations for public-sector problems live on GitHub. Clients get the specific engagement; the method stays in the community so the next buyer can verify it.",
-              cls="mt-8 text-xl text-ink-muted max-w-3xl leading-relaxed"),
-            cls="pt-24",
-        ),
-        Section_(
-            Div(
-                Eyebrow("Repositories"),
-                Heading(2, "Open-source toolkits.", cls="mt-4"),
-                cls="mb-14",
-            ),
-            Div(
-                *[
-                    A(
-                        Div(
-                            Div(
-                                Span(r["name"], cls="font-mono text-ink text-sm"),
-                                Span(r["relevance"], cls=f"ml-auto text-[10px] font-mono tracking-widest px-2 py-0.5 rounded-full border {'border-accent text-accent' if r['relevance']=='HIGH' else 'border-line text-ink-muted'}"),
-                                cls="flex items-center mb-4",
-                            ),
-                            P(r["tagline"], cls="text-ink-muted text-sm leading-relaxed mb-4"),
-                            Div(*[Pill(t) for t in r["tags"]], cls="flex flex-wrap gap-2"),
-                            cls="p-6 rounded-2xl bg-bg-elevated border border-line hover:border-accent/50 transition-colors h-full",
-                        ),
-                        href=r["url"],
-                        target="_blank",
-                        cls="block",
-                    )
-                    for r in REPOS
-                ],
-                cls="grid md:grid-cols-2 lg:grid-cols-3 gap-5",
-            ),
-        ),
-        Section_(
-            Div(
-                Eyebrow("Research platforms"),
-                Heading(2, "Running research on live markets.", cls="mt-4 max-w-3xl"),
-                cls="mb-14",
-            ),
-            Div(
-                *[
-                    A(
-                        Div(
-                            Heading(3, r["name"], cls="mb-3"),
-                            P(r["tagline"], cls="text-ink-muted text-sm leading-relaxed mb-5"),
-                            Div(
-                                Span("Visit ", cls="text-accent text-sm"),
-                                Span("→", cls="text-accent text-sm"),
-                            ),
-                            cls="p-6 rounded-2xl bg-bg-elevated border border-line hover:border-accent/50 transition-colors h-full",
-                        ),
-                        href=r["url"],
-                        target="_blank",
-                        cls="block",
-                    )
-                    for r in EXTERNAL_RESEARCH
-                ],
-                cls="grid md:grid-cols-2 gap-5",
-            ),
-            cls="border-t border-line bg-bg-elevated/40",
-        ),
-        CTASection(),
     )
 
 
@@ -661,18 +574,8 @@ def contact():
                         cls="mb-10",
                     ),
                     Div(
-                        H3("Registered office", cls="text-sm font-mono tracking-widest uppercase text-ink-muted mb-3"),
-                        P("Predictive Labs Ltd", cls="text-ink"),
-                        P("155 Minories Street, Suite 275", cls="text-ink-muted"),
-                        P("London, EC3N 1AD", cls="text-ink-muted"),
-                        P("United Kingdom", cls="text-ink-muted"),
-                        P("Company no. 14857334", cls="text-ink-dim text-sm mt-3 font-mono"),
-                        cls="mb-10",
-                    ),
-                    Div(
-                        H3("Channels", cls="text-sm font-mono tracking-widest uppercase text-ink-muted mb-3"),
-                        A("GitHub", href=GITHUB_URL, target="_blank", cls="block text-ink hover:text-accent mb-2"),
-                        A("LinkedIn", href=LINKEDIN_URL, target="_blank", cls="block text-ink hover:text-accent mb-2"),
+                        H3("Web", cls="text-sm font-mono tracking-widest uppercase text-ink-muted mb-3"),
+                        A("manmouna.tech", href="https://manmouna.tech", cls="block text-ink hover:text-accent mb-2"),
                     ),
                     cls="p-10 rounded-2xl bg-bg-elevated border border-line",
                 ),

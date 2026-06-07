@@ -13,25 +13,4 @@ TEAM = [
         "linkedin": "https://www.linkedin.com/in/juliankaljuvee/",
         "initials": "JK",
     },
-    {
-        "name": "Raslen Guesmi",
-        "role": "Data Scientist / Machine Learning Engineer",
-        "bio": "Applied ML across document intelligence, forecasting, and structured extraction.",
-        "linkedin": "https://www.linkedin.com/in/raslen-guesmi/",
-        "initials": "RG",
-    },
-    {
-        "name": "Siwei Feng",
-        "role": "AI Engineer / Data Scientist",
-        "bio": "Agentic systems, retrieval pipelines, and production LLM deployment.",
-        "linkedin": "https://www.linkedin.com/in/siwei-feng-28488a398/",
-        "initials": "SF",
-    },
-    {
-        "name": "Chenhao Xue",
-        "role": "Quantitative Research Consultant",
-        "bio": "Time-series modelling, portfolio analytics, and research tooling.",
-        "linkedin": "https://www.linkedin.com/in/chenhao-xue-68b93a1a3/",
-        "initials": "CX",
-    },
 ]

@@ -106,7 +106,7 @@ MAX_ITEMS_HOME = 8
 
 _USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-    "PredictiveLabs-NewsFetcher/1.0"
+    "Manmouna-NewsFetcher/1.0"
 )
 
 _cache: dict[str, list[dict[str, Any]]] = {k: [] for k in FEEDS}
@@ -222,7 +222,7 @@ _classify_lock = threading.Lock()
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = os.environ.get("NEWS_FILTER_MODEL", "anthropic/claude-haiku-4-5")
 
-_FILTER_PROMPT = """You filter a news feed for Predictive Labs, a consultancy that builds AI for European public services — defense, health, public management and mobility, financial services, and sector trends in AI and energy.
+_FILTER_PROMPT = """You filter a news feed for Manmouna Technologies, a consultancy that builds AI for European public services — defense, health, public management and mobility, financial services, and sector trends in AI and energy.
 
 For each numbered item, decide if it is RELEVANT for our buyers (senior programme owners, procurement leads, technical directors in European public bodies and regulated enterprises).
 
@@ -293,8 +293,8 @@ def _llm_classify(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
-                "HTTP-Referer": "https://predictivelabs.ai",
-                "X-Title": "Predictive Labs News Filter",
+                "HTTP-Referer": "https://manmouna.tech",
+                "X-Title": "Manmouna Technologies News Filter",
             },
             json=payload,
             timeout=20.0,
