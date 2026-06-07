@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-Predictive Labs corporate landing site — a multi-page, server-rendered FastHTML app with a dark EU-blue palette, Tailwind CSS via CDN, Plotly data visualisations (Signal page), a Three.js globe hero, and a background RSS news feed with LLM-based relevance filtering.
+Manmouna Technologies corporate landing site — a multi-page, server-rendered FastHTML app with a dark forest-green palette, Tailwind CSS via CDN, Plotly data visualisations (Signal page), a Three.js globe hero, and a background RSS news feed with LLM-based relevance filtering.
 
 ## Commands
 

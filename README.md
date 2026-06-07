@@ -1,28 +1,26 @@
-# Predictive Labs AI Landing Page
+# Manmouna Technologies Landing Page
 
-A modern, responsive landing page for Predictive Labs built with FastHTML.
+A multi-page, server-rendered landing site built with FastHTML.
 
 ## Overview
 
-This landing page showcases Predictive Labs' AI and GenAI services, expertise, case studies, and technology stack. The design features a clean, professional aesthetic with a cream and dark green color scheme.
+Corporate landing page for Manmouna Technologies — dark forest-green palette, Tailwind CSS via CDN, Plotly data visualisations (Signal page), a Three.js globe hero, and a background RSS news feed with LLM-based relevance filtering.
 
 ## Features
 
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **FastHTML Framework**: Lightweight and fast Python-based web framework
-- **Modern UI**: Clean typography and card-based layouts
-- **Sections Include**:
-  - Hero section with company mission
-  - Our Expertise (4 key service areas)
-  - Industries We Serve (Insurance, Financial Services, Pharma/Biotech, Manufacturing)
-  - Sample Case Studies (Microsoft, ARM Holdings, Nando's, LSEG)
-  - Technology Stack
-  - Why Choose Predictive Labs
-  - Contact CTA
+- **FastHTML + HTMX**: Lightweight Python-based web framework, server-side rendered
+- **Three.js Globe**: Animated hero with European city dots
+- **Plotly Signal Dashboard**: NHS, defence, education, energy data visualisations
+- **RSS News Feed**: Background daemon with keyword + LLM filtering
+- **Pages**: Home, Platform, Solutions (4 sectors), Case Studies, Signal, Team, Contact
 
 ## Technology Stack
 
 - **Framework**: FastHTML
+- **Styling**: Tailwind CSS (CDN)
+- **Charts**: Plotly
+- **3D**: Three.js
 - **Python**: 3.11+
 - **Server**: Uvicorn
 
@@ -30,8 +28,8 @@ This landing page showcases Predictive Labs' AI and GenAI services, expertise, c
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/predictivelabsai/predictivelabsai-landing.git
-cd predictivelabsai-landing
+git clone https://github.com/tendlyeu/manmouna.git
+cd manmouna
 ```
 
 2. Install dependencies:
@@ -50,44 +48,46 @@ The application will be available at `http://localhost:5001`
 
 ## Deployment
 
-### Deploy to Fly.io
+Docker-based deployment on Coolify:
 
-1. Install the Fly CLI
-2. Run `fly launch` in the project directory
-3. Follow the prompts to deploy
-
-### Deploy to Railway
-
-1. Connect your GitHub repository to Railway
-2. Railway will automatically detect the Python app and deploy
-
-### Deploy to Render
-
-1. Create a new Web Service on Render
-2. Connect your GitHub repository
-3. Set the start command to: `python main.py`
+```bash
+docker build -t manmouna . && docker run -p 5001:5001 manmouna
+```
 
 ## Project Structure
 
 ```
-predictivelabsai-landing/
-├── main.py              # Main FastHTML application
+manmouna/
+├── main.py              # Entrypoint (thin shim for Docker CMD)
+├── app.py               # All routes + fast_app()
+├── components.py         # Shared layout, design tokens, reusable components
+├── content/             # Data layer
+│   ├── case_studies.py  # Case study data
+│   ├── team.py          # Team members
+│   ├── signal.py        # Signal chart data
+│   ├── news.py          # RSS feed + LLM classifier
+│   └── repos.py         # External research links
+├── static/              # Frontend assets
+│   ├── site.css         # Custom styles
+│   ├── signal.js        # Plotly rendering
+│   ├── three-hero.js    # Three.js globe
+│   └── video/           # Hero background video
+├── tests/               # Playwright tests
 ├── requirements.txt     # Python dependencies
-└── README.md           # This file
+├── Dockerfile           # Docker build config
+└── README.md
 ```
 
-## Color Scheme
+## Environment Variables
 
-- **Cream Background**: #F5F1E8
-- **Dark Green**: #2C4A3A
-- **Text Dark**: #2D2D2D
-- **Text Light**: #666666
-- **Accent Green**: #4A7C59
+- `OPENROUTER_API_KEY` — enables LLM-based news filtering (optional)
+- `NEWS_FILTER_MODEL` — override the OpenRouter model (default: `anthropic/claude-haiku-4-5`)
+- `PORT` — server port (default: 5001)
 
 ## Contact
 
-For inquiries, reach out to: info@predictivelabs.ai
+For inquiries: info@manmouna.tech
 
 ## License
 
-Copyright © 2026 Predictive Labs. All rights reserved.
+Copyright © 2026 Manmouna OÜ. All rights reserved.
